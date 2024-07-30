@@ -50,9 +50,19 @@ router.put("/edit/:id", (req, res) => {
         console.error(err);
         return res.status(500).json("Unable to update post");
       }
-      res.status(200).json({ msg: "Successfully Updated" });
+      res.status(201).json({ msg: "Successfully Updated" });
     }
   );
 });
 
+router.delete("/delete/:id", (req, res) => {
+  const id = Number(req.params.id);
+  connection.query("DELETE FROM posts WHERE id = ?", [id], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json("Unable to Delete post");
+    }
+    res.status(201).json({ msg: "Successfully Deleted" });
+  });
+});
 module.exports = router;
