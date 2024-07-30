@@ -2,15 +2,6 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../mysql");
 
-connection.connect((err) => {
-  if (err) {
-    console.error("error connecting: " + err.stack);
-    return;
-  }
-
-  console.log("connected as id " + connection.threadId);
-});
-
 router.get("/", (req, res) => {
   console.log(req.query.limit);
   connection.query("SELECT * FROM posts", function (err, results) {
@@ -28,6 +19,24 @@ router.get("/:id", (req, res) => {
     }
     res.status(404).json({ msg: "No post found" });
   });
+});
+
+router.post("/add", (req, res) => {
+  console.log(req.body);
+  const { user, title, content } = req.body;
+
+  connection.query(
+    "INSERT INTO posts (user_id, title, content) VALUES (?, ?, ?)",
+    [user, title, content],
+    (err) => {
+      if (err) {
+        console.error("Error inserting data:", err);
+        res.status(500).json({ msg: "Error inserting data" });
+      } else {
+        res.status(201).json({ msg: "Success" });
+      }
+    }
+  );
 });
 
 module.exports = router;
