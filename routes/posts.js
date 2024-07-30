@@ -41,8 +41,7 @@ router.post("/add", (req, res) => {
 
 router.put("/edit/:id", (req, res) => {
   const id = Number(req.params.id);
-  const title = "PUT TITLE";
-  const content = "PUT CONTENT";
+  const { title, content } = req.body;
   connection.query(
     "UPDATE posts SET title = ?, content = ? WHERE id = ?",
     [title, content, id],
