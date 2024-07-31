@@ -1,4 +1,4 @@
-const connection = require("../mysql");
+const connection = require("../config/mysql");
 
 const allPosts = (req, res) => {
   console.log(req.query.limit);
