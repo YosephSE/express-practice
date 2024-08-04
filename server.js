@@ -1,11 +1,13 @@
 const express = require("express");
+
+const posts = require("./routes/posts");
+const users = require("./routes/users");
 const path = require("path");
 const app = express();
-const PORT = process.env.PORT;
-const posts = require("./routes/posts");
 
-app.use(express.urlencoded({ extended: false }));
+
 app.use(express.json());
 app.use("/api/posts", posts);
+app.use("/api/users", users);
 
-app.listen(PORT, () => console.log(`serving on port ${PORT}`));
+app.listen(process.env.PORT, () => console.log(`serving on port ${process.env.PORT}`));

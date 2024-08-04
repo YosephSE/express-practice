@@ -8,6 +8,7 @@ const {
   allPosts,
   editPost,
 } = require("../controllers/postControllers");
+
 router.get("/", allPosts);
 
 router.get("/:id", singlePost);

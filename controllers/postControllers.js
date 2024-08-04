@@ -1,7 +1,6 @@
 const connection = require("../config/mysql");
 
 const allPosts = (req, res) => {
-  console.log(req.query.limit);
   connection.query("SELECT * FROM posts", function (err, results) {
     if (err) throw err;
     res.json(results);
